@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UploadFileForm
+import audsigweb_common.testing
 
 from io import BytesIO
 from scipy.io.wavfile import read 
@@ -25,3 +26,6 @@ def samplerate(request):
     form = UploadFileForm(request.POST, request.FILES)
     fs, x = read(BytesIO(request.FILES['file'].read()))
     return JsonResponse({'fs': fs, 'x': len(x)})
+
+def testing(request):
+    return HttpResponse(audsigweb_common.testing.what())
