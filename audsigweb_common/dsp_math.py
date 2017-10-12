@@ -1,11 +1,22 @@
+import io
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot(x, xbounds, ybounds, xlabel, ylabel):
+def plot(x, xbounds, xlabel='x', ybounds=[], ylabel='f(x)'):
+    ybounds = ybounds or [min(x), max(x)]
     plt.plot(xbounds, x)
     plt.axis(xbounds + ybounds)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    
+    # save to buffer
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    data = buf.read()
+    buf.close()
+    return data 
+    
 
 def genSine(A, f, phi, fs, t):
     return A * np.cos(2 * np.pi * f * np.arange(0, t, 1.0/fs) + phi)
@@ -38,4 +49,4 @@ def genMagSpec(x):
     return abs(DFT(x))
 
 def genPhasSpec(x):
-    return np.unwrap(DFT(x))
+    return np.angle(DFT(x))

@@ -1,9 +1,8 @@
 #coding:utf-8
-# from http://z4none.me/post/2014/python-zhong-shi-yong-libmp3lame-jin-xing-mp3-bian-jie-ma
-
 import time
 import ctypes
 
+# from http://z4none.me/post/2014/python-zhong-shi-yong-libmp3lame-jin-xing-mp3-bian-jie-ma
 class LameEncoder():
     def __init__(self, sample_rate, channel_count, bit_rate):
         self.dll  = ctypes.CDLL("libmp3lame.dll")
