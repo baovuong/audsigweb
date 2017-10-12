@@ -3,7 +3,7 @@ import numpy as np
 
 def plot(x, xbounds, ybounds, xlabel, ylabel):
     plt.plot(xbounds, x)
-    plt.axis([xbounds[0], xbounds[1], ybounds[0], ybounds[1]])
+    plt.axis(xbounds + ybounds)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
 
@@ -21,7 +21,6 @@ def DFT(x):
     for k in kv:
         s = np.exp(1j * 2 * np.pi * k / N * nv)
         X = np.append(X, sum(x * np.conjugate(s)))
-
     return X
 
 def IDFT(X):
@@ -37,3 +36,6 @@ def IDFT(X):
 
 def genMagSpec(x):
     return abs(DFT(x))
+
+def genPhasSpec(x):
+    return np.unwrap(DFT(x))
